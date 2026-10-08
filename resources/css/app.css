@@ -5,7 +5,204 @@
 
 @theme {
     --font-sans:
-        'Instrument Sans', ui-sans-serif, system-ui, sans-serif,
-        'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
-        'Noto Color Emoji';
+        'Manrope', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto,
+        'Helvetica Neue', Arial, sans-serif;
+    --font-serif:
+        'Source Serif 4', 'Iowan Old Style', 'Palatino Linotype', Georgia, serif;
+
+    --color-navy-50: #eef3fb;
+    --color-navy-100: #d9e3f5;
+    --color-navy-200: #b3c6ea;
+    --color-navy-300: #83a2da;
+    --color-navy-400: #4f78c4;
+    --color-navy-500: #2b5aa8;
+    --color-navy-600: #1f4688;
+    --color-navy-700: #18366a;
+    --color-navy-800: #112850;
+    --color-navy-900: #0b1d3f;
+    --color-navy-950: #06122a;
+
+    --color-gold-50: #fdf8e7;
+    --color-gold-100: #faeec0;
+    --color-gold-200: #f5dd85;
+    --color-gold-300: #efc94f;
+    --color-gold-400: #e8b52c;
+    --color-gold-500: #d99e14;
+    --color-gold-600: #b57f0f;
+    --color-gold-700: #8f6210;
+    --color-gold-800: #6b4a12;
+    --color-gold-900: #4d3611;
+
+    --color-paper: #f7f6f2;
+    --color-ink: #141a26;
+
+    --shadow-card:
+        0 1px 2px rgb(11 29 63 / 0.06), 0 8px 24px -12px rgb(11 29 63 / 0.18);
+    --shadow-float: 0 20px 50px -20px rgb(11 29 63 / 0.35);
+
+    --animate-fade-up: fade-up 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+    --animate-fade-in: fade-in 0.4s ease-out both;
+
+    @keyframes fade-up {
+        from {
+            opacity: 0;
+            transform: translateY(14px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes fade-in {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+}
+
+@layer base {
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        @apply bg-paper text-ink;
+        text-rendering: optimizeLegibility;
+    }
+
+    ::selection {
+        @apply bg-gold-200 text-navy-900;
+    }
+
+    [type='search']::-webkit-search-cancel-button {
+        -webkit-appearance: none;
+    }
+}
+
+@utility container-site {
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+}
+
+@utility eyebrow {
+    @apply text-xs font-bold tracking-[0.18em] uppercase;
+}
+
+@utility card {
+    @apply rounded-2xl border border-navy-900/8 bg-white shadow-card;
+}
+
+@utility focus-ring {
+    @apply outline-none focus-visible:ring-2 focus-visible:ring-gold-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white;
+}
+
+/* Rich text content rendered from the CMS */
+.prose-site {
+    @apply text-[1.04rem] leading-relaxed text-ink/90;
+}
+.prose-site > * + * {
+    @apply mt-5;
+}
+.prose-site h2 {
+    @apply mt-10 mb-4 font-serif text-2xl font-semibold text-navy-900 sm:text-3xl;
+}
+.prose-site h3 {
+    @apply mt-8 mb-3 font-serif text-xl font-semibold text-navy-900 sm:text-2xl;
+}
+.prose-site h4 {
+    @apply mt-6 mb-2 text-lg font-bold text-navy-900;
+}
+.prose-site p {
+    @apply leading-[1.75];
+}
+.prose-site a {
+    @apply font-medium text-navy-600 underline decoration-gold-400 decoration-2 underline-offset-4 transition hover:text-navy-800 hover:decoration-gold-500;
+}
+.prose-site ul {
+    @apply list-disc space-y-2 pl-6 marker:text-gold-500;
+}
+.prose-site ol {
+    @apply list-decimal space-y-2 pl-6 marker:font-semibold marker:text-navy-600;
+}
+.prose-site blockquote {
+    @apply border-l-4 border-gold-400 bg-gold-50/60 py-3 pr-4 pl-5 font-serif text-lg text-navy-900 italic;
+}
+.prose-site img {
+    @apply my-6 h-auto max-w-full rounded-xl shadow-card;
+}
+.prose-site table {
+    @apply my-6 w-full border-collapse overflow-hidden rounded-lg text-sm;
+}
+.prose-site th {
+    @apply bg-navy-900 px-3 py-2 text-left font-semibold text-white;
+}
+.prose-site td {
+    @apply border-b border-navy-900/10 px-3 py-2 align-top;
+}
+.prose-site hr {
+    @apply my-8 border-navy-900/10;
+}
+.prose-site code {
+    @apply rounded bg-navy-50 px-1.5 py-0.5 font-mono text-[0.9em] text-navy-800;
+}
+.prose-site pre {
+    @apply overflow-x-auto rounded-xl bg-navy-950 p-4 text-sm text-navy-50;
+}
+.prose-site pre code {
+    @apply bg-transparent p-0 text-inherit;
+}
+
+/* Tiptap editor */
+.editor-content {
+    @apply min-h-[320px] px-4 py-3 text-[15px] leading-relaxed outline-none;
+}
+.editor-content > * + * {
+    @apply mt-3;
+}
+.editor-content h2 {
+    @apply text-2xl font-bold text-navy-900;
+}
+.editor-content h3 {
+    @apply text-xl font-bold text-navy-900;
+}
+.editor-content h4 {
+    @apply text-lg font-semibold text-navy-900;
+}
+.editor-content ul {
+    @apply list-disc pl-6;
+}
+.editor-content ol {
+    @apply list-decimal pl-6;
+}
+.editor-content blockquote {
+    @apply border-l-4 border-gold-400 pl-4 text-slate-600 italic;
+}
+.editor-content a {
+    @apply text-navy-600 underline;
+}
+.editor-content img {
+    @apply my-3 h-auto max-w-full rounded-lg;
+}
+.editor-content table {
+    @apply my-3 w-full border-collapse;
+}
+.editor-content th,
+.editor-content td {
+    @apply border border-slate-300 px-2 py-1 align-top;
+}
+.editor-content th {
+    @apply bg-slate-100 font-semibold;
+}
+.editor-content .is-editor-empty:first-child::before {
+    @apply pointer-events-none float-left h-0 text-slate-400;
+    content: attr(data-placeholder);
+}
+
+/* Thin scrollbars for admin sidebars */
+.scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: rgb(255 255 255 / 0.2) transparent;
 }
